@@ -19,6 +19,7 @@ class GreetingView: UIView { //View
     override init(frame: CGRect){
         super.init(frame: frame)
         setupViews()
+        setupConstraints()
         self.backgroundColor = UIColor.blue
     }
     
@@ -49,15 +50,17 @@ class GreetingView: UIView { //View
     
     func setupViews() {
         addSubview(greetingLabel)
+        addSubview(showGreetingButton)
+    }
+    
+    func setupConstraints(){
         greetingLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
         greetingLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8).isActive = true
         greetingLabel.backgroundColor = UIColor.black
         greetingLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         greetingLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        
-        addSubview(showGreetingButton)
         showGreetingButton.backgroundColor = UIColor.red
-
+        
         showGreetingButton.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 8).isActive = true
         showGreetingButton.leadingAnchor.constraint(equalTo:
             greetingLabel.leadingAnchor, constant: 0).isActive = true
