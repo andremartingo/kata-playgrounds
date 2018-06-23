@@ -14,6 +14,8 @@ struct Person { // Model
 
 class GreetingView: UIView { //View
     
+    var tapAction: (()->Void)?
+    
     override init(frame: CGRect){
         super.init(frame: frame)
         setupViews()
@@ -42,7 +44,6 @@ class GreetingView: UIView { //View
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.red, for: .highlighted)
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(GreetingViewController, action: #selector(didTapButton(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -62,8 +63,14 @@ class GreetingView: UIView { //View
             greetingLabel.leadingAnchor, constant: 0).isActive = true
         showGreetingButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         showGreetingButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        
+        showGreetingButton.addTarget(self, action: #selector(self.tap), for: .touchUpInside)
     }
+    
+    @objc func tap(){
+        tapAction?()
+    }
+    
+    
 }
 
 class GreetingViewController : UIViewController {   // Controller
@@ -72,11 +79,15 @@ class GreetingViewController : UIViewController {   // Controller
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
         greetingView = GreetingView(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
         self.view.addSubview(greetingView)
-
+        
+        greetingView.tapAction = {
+            [weak self] in
+            guard let strongSelf = self else {return}
+            strongSelf.greetingView.greetingLabel.text = "Hello " + strongSelf.person.firstName + " " + strongSelf.person.lastName
+        }
     }
     
     @objc func didTapButton(sender: UIButton) {
