@@ -90,9 +90,6 @@ class GreetingViewController : UIViewController {   // Controller
         }
     }
     
-    @objc func didTapButton(sender: UIButton) {
-        greetingView.greetingLabel.text = "Hello " + self.person.firstName + " " + self.person.lastName
-    }
 }
 
 let model = Person(firstName: "Wasin", lastName: "Thonkaew")
