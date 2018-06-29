@@ -20,7 +20,7 @@ class GreetingView: UIView { //View
         super.init(frame: frame)
         setupViews()
         setupConstraints()
-        self.backgroundColor = UIColor.blue
+        self.backgroundColor = UIColor.white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,7 +34,7 @@ class GreetingView: UIView { //View
         label.font = UIFont.systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = UIColor.white
+        label.textColor = UIColor.red
         return label
     }()
     
@@ -48,9 +48,19 @@ class GreetingView: UIView { //View
         return button
     }()
     
+    let toogleSwitch: UISwitch = {
+        let mySwitch = UISwitch()
+        mySwitch.setOn(false, animated: false)
+        mySwitch.backgroundColor = UIColor.white
+        mySwitch.translatesAutoresizingMaskIntoConstraints = false
+
+        return mySwitch
+    }()
+    
     func setupViews() {
         addSubview(greetingLabel)
         addSubview(showGreetingButton)
+        addSubview(toogleSwitch)
     }
     
     func setupConstraints(){
@@ -67,6 +77,8 @@ class GreetingView: UIView { //View
         showGreetingButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         showGreetingButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
         showGreetingButton.addTarget(self, action: #selector(self.tap), for: .touchUpInside)
+        
+        toogleSwitch.topAnchor.constraint(equalTo: showGreetingButton.bottomAnchor, constant: 8).isActive = true
     }
     
     @objc func tap(){
